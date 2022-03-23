@@ -1,0 +1,18 @@
+{
+    "npm.scriptExplorerAction": "run",
+    "npm.exclude": [
+        "**/build",
+        "**/build/**"
+    ],
+    "cSpell.words": [
+        "commitlint",
+        "conventionalcommits",
+        "dbtools",
+        "entrypoints",
+        "ords",
+        "PLSQL",
+        "pnpm",
+        "postversion",
+        "threeshake"
+    ]
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ORDS JS SDK Playground</title>
+
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">ORDS JS SDK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./">Demo <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./doc/">Documentation</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="d-flex h-100">
+            <div id="left"></div>
+            <div id="right">
+                <pre id="jsonData"></pre>
+            </div>
+        </div>
+
+        <!--script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../node_modules/split.js/dist/split.min.js"></script-->
+
+        <script>
+            const gUrls = {
+                collection: 'http://localhost:8081/ords/pdbdba/api/employees/',
+                item: 'http://localhost:8081/ords/pdbdba/api/employees/100',
+                other: '',
+                authenticated: 'http://localhost:8081/ords/pdbdba/api/employees/'
+            };
+
+        </script>
+        <script type="module">
+            import { ORDSResource } from './resource.js';
+            import { asyncSleep } from './utilities.js';
+
+            function printData(){
+                document.querySelector( '#jsonData' ).textContent = JSON.stringify( gResource.jsonData, null, 4 );
+            }
+
+            const gResource = new ORDSResource( gUrls.collection, {
+                limit: 20
+            } );
+            await gResource.makeRequest();
+            printData();
+            // await asyncSleep( 2000 );
+            // await gResource.requestNextPage();
+            // printData();
+
+            Object.assign( window, {
+                ORDSResource,
+                printData,
+                gResource
+            } );
+        </script>
+    </body>
+</html>

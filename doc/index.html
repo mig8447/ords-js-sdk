@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>ords-js-sdk 1.0.0 | Documentation</title>
+  <meta name='description' content='## How to develop'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>ords-js-sdk</h3>
+          <div class='mb1'><code>1.0.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#collection'
+                  class="">
+                  COLLECTION
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#item'
+                  class="">
+                  ITEM
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#media'
+                  class="">
+                  MEDIA
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#other'
+                  class="">
+                  OTHER
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#equals'
+                  class="">
+                  EQUALS
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#greater_than'
+                  class="">
+                  GREATER_THAN
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#less_than'
+                  class="">
+                  LESS_THAN
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#not_equals'
+                  class="">
+                  NOT_EQUALS
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#in_string'
+                  class="">
+                  IN_STRING
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#like'
+                  class="">
+                  LIKE
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='collection'>
+      COLLECTION
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>A json/collection resource</p>
+
+    <div class='pre p1 fill-light mt0'>COLLECTION</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='item'>
+      ITEM
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>A json/item resource</p>
+
+    <div class='pre p1 fill-light mt0'>ITEM</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='media'>
+      MEDIA
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>A non-JSON resource</p>
+
+    <div class='pre p1 fill-light mt0'>MEDIA</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='other'>
+      OTHER
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>A JSON resource with limited support</p>
+
+    <div class='pre p1 fill-light mt0'>OTHER</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='equals'>
+      EQUALS
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that are equal to a value</p>
+
+    <div class='pre p1 fill-light mt0'>EQUALS</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='greater_than'>
+      GREATER_THAN
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that are greater than a value</p>
+
+    <div class='pre p1 fill-light mt0'>GREATER_THAN</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='less_than'>
+      LESS_THAN
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that are lesser than a value</p>
+
+    <div class='pre p1 fill-light mt0'>LESS_THAN</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='not_equals'>
+      NOT_EQUALS
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that are different from a value</p>
+
+    <div class='pre p1 fill-light mt0'>NOT_EQUALS</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='in_string'>
+      IN_STRING
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that are contained in a string value</p>
+
+    <div class='pre p1 fill-light mt0'>IN_STRING</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='like'>
+      LIKE
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>To filter the values in a column that match a SQL LIKE expression in a string value</p>
+
+    <div class='pre p1 fill-light mt0'>LIKE</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

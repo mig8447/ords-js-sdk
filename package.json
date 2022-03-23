@@ -1,0 +1,53 @@
+{
+  "name": "ords-js-sdk",
+  "description": "",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "concurrently \"npm run dev\" \"npm run doc -- -w\"",
+    "dev": "snowpack dev --verbose",
+    "test": "web-test-runner 'src/**/*.test.js' --node-resolve",
+    "build": "npm run test && npx snowpack build && npm run doc",
+    "release": "semantic-release",
+    "doc": "documentation build 'src/**/*.js' -f html -o doc --config documentation.yml",
+    "postversion": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mig8447/ords-js-sdk.git"
+  },
+  "keywords": [],
+  "author": "Oracle Corporation",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@snowpack/plugin-dotenv": "^2.2.0",
+    "@types/node": "*",
+    "@web/test-runner": "^0.13.22",
+    "@web/test-runner-mocha": "^0.7.5",
+    "concurrently": "^7.0.0",
+    "documentation": "^13.2.5",
+    "eslint": "^8.4.1",
+    "husky": "^7.0.4",
+    "mocha": "^9.1.3",
+    "semantic-release": "^18.0.1",
+    "snowpack": "^3.8.8"
+  },
+  "peerDependencies": {
+    "bootstrap": "4.6",
+    "codemirror": "^5.65.1",
+    "jquery": "^3.6.0",
+    "split.js": "^1.6.5"
+  },
+  "directories": {
+    "doc": "doc"
+  }
+}
