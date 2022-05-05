@@ -7,6 +7,10 @@
         <title>ORDS JS SDK Playground</title>
 
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+        <script src="codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/mode/javascript/javascript.js"></script>
+        <link rel="stylesheet" href="codemirror/theme/dracula.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,6 +29,11 @@
                     </li>
                 </ul>
             </div>
+            <div>
+                <textarea id="code" cols="30" rows="10"></textarea>
+                <button type="button" onclick=" run() ">Press</button>
+                <pre id="result"></pre>
+            </div>
         </nav>
         <div class="d-flex h-100">
             <div id="left"></div>
@@ -37,6 +46,7 @@
         <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../node_modules/split.js/dist/split.min.js"></script-->
 
+
         <script>
             const gUrls = {
                 collection: '%SNOWPACK_PUBLIC_COLLECTION_RESOURCE_URL%',
@@ -44,30 +54,51 @@
                 other: '%SNOWPACK_PUBLIC_OTHER_RESOURCE_URL%',
                 authenticated: '%SNOWPACK_PUBLIC_AUTHENTICATED_RESOURCE_URL%'
             };
-
         </script>
         <script type="module">
             import { ORDSResource } from './resource.js';
             import { asyncSleep } from './utilities.js';
 
-            function printData(){
-                document.querySelector( '#jsonData' ).textContent = JSON.stringify( gResource.jsonData, null, 4 );
-            }
+            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                lineNumbers: true,
+                mode: "javascript",
+                theme: "dracula"
+            });
 
-            const gResource = new ORDSResource( gUrls.collection, {
-                limit: 20
-            } );
-            await gResource.makeRequest();
-            printData();
-            // await asyncSleep( 2000 );
-            // await gResource.requestNextPage();
-            // printData();
+            function printData(pResource){
+                document.querySelector( '#jsonData' ).textContent = JSON.stringify( pResource.jsonData, null, 4 );
+            }
 
             Object.assign( window, {
                 ORDSResource,
                 printData,
-                gResource
-            } );
+                asyncSleep,
+                editor
+            })
+
+            const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+
+            window.run = function() {
+                const code = editor.getValue()
+                const fn = new AsyncFunction(code)
+                
+                fn()
+                
+            }
+
+            
+            // const gResource = new ORDSResource( gUrls.collection, {
+            //     limit: 20
+            // } );
+
+            // await gResource.makeRequest();
+
+            // printData(gResource)
+
+            // await asyncSleep( 2000 );
+            // await gResource.requestNextPage();
+            // printData();
+
         </script>
     </body>
 </html>

@@ -15,7 +15,8 @@ export class ORDSResource {
                     accept: 'application/json',
                     ...pOptions?.fetchOptions?.headers
                 }
-            }
+            },
+            authentication: null
         };
 
         this._class = Object.getPrototypeOf( this ).constructor;
@@ -171,9 +172,22 @@ export class ORDSResource {
             return pAccumulator;
         }, {} );
     }
+
+    async _getAuthenticationToken(){
+        if(this._options.authentication.clientId === null || this._options.authentication.clientSecret === null) return
+        // Hacer fetch, no olvidar await
+        const token = ''
+
+        this._options.fetchOptions.headers = {
+            ...this._options.fetchOptions.headers, 
+            'Authorization': `Bearer ${token}`
+        }
+    }
+
     async makeRequest() {
         // TODO: Maybe make a HEAD before
         // TODO: What happens with CORS?
+        await this._getAuthenticationToken();
         const lResponse = await fetch( this.url, this._options.fetchOptions );
         const lMimeType = lResponse.headers.get( 'Content-Type' );
         const lIsJson = isJsonMimeType( lMimeType );
