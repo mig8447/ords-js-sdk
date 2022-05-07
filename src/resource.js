@@ -7,6 +7,11 @@ export class ORDSResource {
         const lOptions = {
             offset: 0,
             limit: null,
+            baseUrl: null,
+            authentication: {
+                clientId: null,
+                clientSecret: null
+            },
             ...pOptions,
             fetchOptions: {
                 method: 'GET',
@@ -15,24 +20,30 @@ export class ORDSResource {
                     accept: 'application/json',
                     ...pOptions?.fetchOptions?.headers
                 }
-            },
-            authentication: null
+            }
         };
-
+        this._options = lOptions;
+        
         this._class = Object.getPrototypeOf( this ).constructor;
 
-        this._url = new URL( pUrl );
+        
+        this._url = new URL( this._options.baseUrl ? this._options.baseUrl + pUrl : pUrl );
+
         // Remove any parameters in the URL
         this._url.search = '';
 
         this._initialUrl = new URL( this.url );
 
-        this._options = lOptions;
+        
 
         this._type = null;
         this._limit = lOptions.limit || null;
         this._offset = lOptions.offset || null;
         this._hasMore = null;
+
+        this._baseUrl = lOptions.baseUrl || null;
+
+        this._authentication = lOptions.authentication || null;
 
         this._updateUrlSearchParameters();
 
@@ -61,6 +72,9 @@ export class ORDSResource {
     }
     get offset() {
         return this._offset;
+    }
+    get baseUrl() {
+        return this._baseUrl;
     }
     get hasMore() {
         return this._hasMore;
@@ -174,14 +188,31 @@ export class ORDSResource {
     }
 
     async _getAuthenticationToken(){
-        if(this._options.authentication.clientId === null || this._options.authentication.clientSecret === null) return
+        if(this._options.authentication.clientId === null || this._options.authentication.clientSecret === null || this._options.baseUrl === null) return;
         // Hacer fetch, no olvidar await
-        const token = ''
+        let url = this._options.baseUrl;
+        url += 'oauth/token';
+
+        const clientToBase64 = btoa(this._options.authentication.clientId+':'+this._options.authentication.clientSecret);
+
+        const token = (await fetch(url, {
+            body: 'grant_type=client_credentials',
+            headers: {
+                Authorization: `Basic ${clientToBase64}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST'
+        })
+            .then(response => response.json())).access_token;
+        
+
 
         this._options.fetchOptions.headers = {
             ...this._options.fetchOptions.headers, 
             'Authorization': `Bearer ${token}`
-        }
+        };
+
+
     }
 
     async makeRequest() {
