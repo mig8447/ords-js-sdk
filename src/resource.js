@@ -33,7 +33,6 @@ export class ORDSResource {
         this._url.search = '';
 
         this._initialUrl = new URL( this.url );
-
         
 
         this._type = null;
@@ -198,8 +197,11 @@ export class ORDSResource {
         const token = (await fetch(url, {
             body: 'grant_type=client_credentials',
             headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:8080',
                 Authorization: `Basic ${clientToBase64}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Origin: 'https://localhost:8080',
+                accept: 'application/json'
             },
             method: 'POST'
         })

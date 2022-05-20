@@ -65,11 +65,15 @@
             import { ORDSResource } from './resource.js';
             import { asyncSleep } from './utilities.js';
 
+            var testEndpoint = "//Note: \n//gUrls.collection = https://g1ad6fb82f858f9-atptec.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/sample/employees/\n\nconst gResource = new ORDSResource(gUrls.collection) \n\nawait gResource.makeRequest() \n\nprintData(gResource)"
+
             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true,
                 mode: "javascript",
                 theme: "dracula"
             });
+
+            editor.setValue(testEndpoint)
 
             function printData(pResource){
                 document.querySelector( '#jsonData' ).textContent = JSON.stringify( pResource.jsonData, null, 4 );
@@ -89,12 +93,21 @@
                 const fn = new AsyncFunction(code)
                 
                 fn()
+
+                // const code = document.getElementById('code').value
+                // const fn = new Function(code)
+                // fn()
                 
             }
 
             
             // const gResource = new ORDSResource( gUrls.collection, {
-            //     limit: 20
+            //     limit: 20,
+            //     baseUrl: "https://g1ad6fb82f858f9-atptec.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/",
+            //     authentication: {
+            //         clientId: "V_sJ4KgixGAGFvyV_C7fTg..",
+            //         clientSecret: "gZBhMkXKEQE1Vy0QfVHSVA.."
+            //     },
             // } );
 
             // await gResource.makeRequest();
