@@ -7,10 +7,10 @@
         <title>ORDS JS SDK Playground</title>
 
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+        <!-- <link rel="stylesheet" href="codemirror/lib/codemirror.css">
         <script src="codemirror/lib/codemirror.js"></script>
         <script src="codemirror/mode/javascript/javascript.js"></script>
-        <link rel="stylesheet" href="codemirror/theme/dracula.css">
+        <link rel="stylesheet" href="codemirror/theme/dracula.css"> -->
     </head>
     <body>
         <div style="width: 50%; float:left">
@@ -67,13 +67,14 @@
 
             var testEndpoint = "//Note: \n//gUrls.collection = https://g1ad6fb82f858f9-atptec.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/sample/employees/\n\nconst gResource = new ORDSResource(gUrls.collection) \n\nawait gResource.makeRequest() \n\nprintData(gResource)"
 
-            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-                lineNumbers: true,
-                mode: "javascript",
-                theme: "dracula"
-            });
+            document.getElementById('code').value = testEndpoint
+            // var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            //     lineNumbers: true,
+            //     mode: "javascript",
+            //     theme: "dracula"
+            // });
 
-            editor.setValue(testEndpoint)
+            // editor.setValue(testEndpoint)
 
             function printData(pResource){
                 document.querySelector( '#jsonData' ).textContent = JSON.stringify( pResource.jsonData, null, 4 );
@@ -82,21 +83,21 @@
             Object.assign( window, {
                 ORDSResource,
                 printData,
-                asyncSleep,
-                editor
+                asyncSleep
             })
 
             const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 
             window.run = function() {
-                const code = editor.getValue()
-                const fn = new AsyncFunction(code)
+                // const code = editor.getValue()
+                // const fn = new AsyncFunction(code)
                 
-                fn()
-
-                // const code = document.getElementById('code').value
-                // const fn = new Function(code)
                 // fn()
+                console.log("Click")
+
+                const code = document.getElementById('code').value
+                const fn = new AsyncFunction(code)
+                fn()
                 
             }
 
