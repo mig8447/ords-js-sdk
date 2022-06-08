@@ -19,7 +19,8 @@ export class ORDSResource {
                 headers: {
                     accept: 'application/json',
                     ...pOptions?.fetchOptions?.headers
-                }
+                },
+                
             }
         };
         this._options = lOptions;
@@ -258,6 +259,42 @@ export class ORDSResource {
         }
 
         this._url = new URL( lNextUrl );
+        await this.makeRequest();
+    }
+
+    async requestPrevPage(){
+        this._throwIfNoData();
+        this._throwIfNotCollection();
+
+        if ( !this.hasMore && !this._links.prev ) {
+            console.warn( 'ORDSResource: Resource does not have more pages' );
+            return false;
+        }
+        
+        const lPrevUrl = this._links?.prev?.[ 0 ];
+        if ( !lPrevUrl ) {
+            throw new Error( 'ORDSResource: Data does not contain a "prev" link reference' );
+        }
+
+        this._url = new URL( lPrevUrl );
+        await this.makeRequest();
+    }
+
+    async requestFirstPage(){
+        this._throwIfNoData();
+        this._throwIfNotCollection();
+
+        if ( !this.hasMore && !this._links.prev ) {
+            console.warn( 'ORDSResource: Resource does not have more pages' );
+            return false;
+        }
+        
+        const lFirstUrl = this._links?.first?.[ 0 ];
+        if ( !lFirstUrl ) {
+            throw new Error( 'ORDSResource: Data does not contain a "first" link reference' );
+        }
+
+        this._url = new URL( lFirstUrl );
         await this.makeRequest();
     }
 }

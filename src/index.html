@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ORDS JS SDK Playground</title>
 
-        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+        <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="codemirror/lib/codemirror.css">
         <script src="codemirror/lib/codemirror.js"></script>
         <script src="codemirror/mode/javascript/javascript.js"></script>
-        <link rel="stylesheet" href="codemirror/theme/dracula.css"> -->
+        <link rel="stylesheet" href="codemirror/theme/dracula.css">
     </head>
     <body>
         <div style="width: 50%; float:left">
@@ -32,7 +32,10 @@
                 </div>
                 <div>
                     <textarea id="code" cols="30" rows="10"></textarea>
+                    <button type="button" onclick=" prev() ">Prev</button>
                     <button type="button" onclick=" run() ">Press</button>
+                    <button type="button" onclick=" next() ">Next</button>
+                    <button type="button" onclick=" first() ">First</button>
                     <pre id="result"></pre>
                 </div>
             </nav>
@@ -52,7 +55,17 @@
         <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../node_modules/split.js/dist/split.min.js"></script-->
 
-
+        <style>
+            .CodeMirror{
+                height:80vh !important;
+            }
+            body{
+                background-color:#282a36;
+            }
+            #jsonData{
+                color: white;
+            }
+        </style>
         <script>
             const gUrls = {
                 collection: '%SNOWPACK_PUBLIC_COLLECTION_RESOURCE_URL%',
@@ -60,21 +73,24 @@
                 other: '%SNOWPACK_PUBLIC_OTHER_RESOURCE_URL%',
                 authenticated: '%SNOWPACK_PUBLIC_AUTHENTICATED_RESOURCE_URL%'
             };
+
+            var gResource;
         </script>
         <script type="module">
             import { ORDSResource } from './resource.js';
             import { asyncSleep } from './utilities.js';
 
-            var testEndpoint = "//Note: \n//gUrls.collection = https://g1ad6fb82f858f9-atptec.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/sample/employees/\n\nconst gResource = new ORDSResource(gUrls.collection) \n\nawait gResource.makeRequest() \n\nprintData(gResource)"
+            var testEndpoint = "//Note: \n//gUrls.collection = https://g1ad6fb82f858f9-atptec.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/sample/employees/\n\ngResource = new ORDSResource(gUrls.collection) \n\nconsole.log(gResource) \n\nawait gResource.makeRequest() \n\nprintData(gResource)"
 
-            document.getElementById('code').value = testEndpoint
-            // var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-            //     lineNumbers: true,
-            //     mode: "javascript",
-            //     theme: "dracula"
-            // });
+            // document.getElementById('code').value = testEndpoint
 
-            // editor.setValue(testEndpoint)
+            var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                lineNumbers: true,
+                mode: "javascript",
+                theme: "dracula",
+            });
+
+            editor.setValue(testEndpoint)
 
             function printData(pResource){
                 document.querySelector( '#jsonData' ).textContent = JSON.stringify( pResource.jsonData, null, 4 );
@@ -83,23 +99,53 @@
             Object.assign( window, {
                 ORDSResource,
                 printData,
-                asyncSleep
+                asyncSleep,
+                editor
             })
 
             const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 
             window.run = function() {
-                // const code = editor.getValue()
-                // const fn = new AsyncFunction(code)
-                
-                // fn()
-                console.log("Click")
-
-                const code = document.getElementById('code').value
+                const code = editor.getValue()
                 const fn = new AsyncFunction(code)
+                
                 fn()
+
+                // const code = document.getElementById('code').value
+                // const fn = new Function(code)
+                // fn()
                 
             }
+
+            window.prev = async function() {
+                await gResource.requestPrevPage()
+                printData(gResource)
+            }
+            
+            window.next = async function() {
+                await gResource.requestNextPage()
+                printData(gResource)
+            }
+            
+            window.first = async function() {
+                await gResource.requestFirstPage()
+                printData(gResource)
+            }
+
+            /*
+                To make a delete method:
+                {
+                    fetchOptions: {
+                        method: 'DELETE',
+                        headers:{
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: 7566
+                        })
+                    }
+                }
+            */
 
             
             // const gResource = new ORDSResource( gUrls.collection, {
